@@ -24,7 +24,7 @@ This repository contains several independent Java projects for sending metrics t
 ## To start developing
 
 ```
-$ git clone github.com/wavefronthq/java ${directory}
+$ git clone https://github.com/wavefronthq/wavefront-proxy ${directory}
 $ cd ${directory}
 $ mvn clean install -DskipTests
 ```
