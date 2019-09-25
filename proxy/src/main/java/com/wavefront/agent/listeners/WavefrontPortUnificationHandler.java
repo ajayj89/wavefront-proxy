@@ -23,6 +23,7 @@ import javax.annotation.Nullable;
 
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
+import wavefront.report.Event;
 import wavefront.report.ReportPoint;
 import wavefront.report.ReportSourceTag;
 
@@ -48,10 +49,12 @@ public class WavefrontPortUnificationHandler extends PortUnificationHandler {
 
   private final ReportableEntityDecoder<String, ReportPoint> wavefrontDecoder;
   private final ReportableEntityDecoder<String, ReportSourceTag> sourceTagDecoder;
+  private final ReportableEntityDecoder<String, Event> eventDecoder;
   private final ReportableEntityDecoder<String, ReportPoint> histogramDecoder;
   private final ReportableEntityHandler<ReportPoint> wavefrontHandler;
   private final Supplier<ReportableEntityHandler<ReportPoint>> histogramHandlerSupplier;
   private final Supplier<ReportableEntityHandler<ReportSourceTag>> sourceTagHandlerSupplier;
+  private final Supplier<ReportableEntityHandler<Event>> eventHandlerSupplier;
 
   /**
    * Create new instance with lazy initialization for handlers.
@@ -79,10 +82,13 @@ public class WavefrontPortUnificationHandler extends PortUnificationHandler {
     this.wavefrontHandler = handlerFactory.getHandler(HandlerKey.of(ReportableEntityType.POINT, handle));
     this.histogramDecoder = decoders.get(ReportableEntityType.HISTOGRAM);
     this.sourceTagDecoder = decoders.get(ReportableEntityType.SOURCE_TAG);
+    this.eventDecoder = decoders.get(ReportableEntityType.EVENT);
     this.histogramHandlerSupplier = Utils.lazySupplier(() -> handlerFactory.getHandler(
         HandlerKey.of(ReportableEntityType.HISTOGRAM, handle)));
     this.sourceTagHandlerSupplier = Utils.lazySupplier(() -> handlerFactory.getHandler(
         HandlerKey.of(ReportableEntityType.SOURCE_TAG, handle)));
+    this.eventHandlerSupplier = Utils.lazySupplier(() -> handlerFactory.getHandler(
+        HandlerKey.of(ReportableEntityType.EVENT, handle)));
   }
 
   /**
@@ -111,6 +117,23 @@ public class WavefrontPortUnificationHandler extends PortUnificationHandler {
           }
         } catch (Exception e) {
           sourceTagHandler.reject(message, formatErrorMessage("WF-300 Cannot parse: \"" + message +
+              "\"", e, ctx));
+        }
+        return;
+      case EVENT:
+        ReportableEntityHandler<Event> eventHandler = eventHandlerSupplier.get();
+        if (eventHandler == null || eventDecoder == null) {
+          wavefrontHandler.reject(message, "Port is not configured to accept event data!");
+          return;
+        }
+        List<Event> events = Lists.newArrayListWithCapacity(1);
+        try {
+          eventDecoder.decode(message, events, "dummy");
+          for (Event event : events) {
+            eventHandler.report(event);
+          }
+        } catch (Exception e) {
+          eventHandler.reject(message, formatErrorMessage("WF-300 Cannot parse: \"" + message +
               "\"", e, ctx));
         }
         return;
