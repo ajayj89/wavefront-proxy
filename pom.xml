@@ -42,6 +42,9 @@
   </distributionManagement>
 
   <properties>
+    <!-- jdk 11 can be used for building -->
+    <jdk.version>11</jdk.version>
+    
     <!-- Force encoding to UTF-8 (bug in OS X)-->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -52,10 +55,12 @@
 
     <java.version>1.8</java.version>
     <log4j.version>2.12.1</log4j.version>
-    <jackson.version>2.9.9</jackson.version>
-    <jackson-databind.version>2.9.9.3</jackson-databind.version>
+    <jackson.version>2.9.10</jackson.version>
+    <jackson-databind.version>2.9.10</jackson-databind.version>
     <netty.version>4.1.41.Final</netty.version>
     <java-lib.version>2019-09.1</java-lib.version>
+
+    <doclint>none</doclint>
   </properties>
 
   <build>
