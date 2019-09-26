@@ -4,7 +4,7 @@
 
   <groupId>com.wavefront</groupId>
   <artifactId>wavefront</artifactId>
-  <version>5.2-RELEASE-TEST-SNAPSHOT</version>
+  <version>5.2-RELEASE-TEST</version>
   <modules>
     <module>proxy</module>
   </modules>
@@ -31,7 +31,7 @@
     <connection>scm:git:git@github.com:ajayj89/wavefront-proxy.git</connection>
     <developerConnection>scm:git:git@github.com:ajayj89/wavefront-proxy.git</developerConnection>
     <url>git@github.com:ajayj89/wavefront-proxy.git</url>
-    <tag>release-5.x</tag>
+    <tag>wavefront-5.2-RELEASE-TEST</tag>
   </scm>
 
   <distributionManagement>
