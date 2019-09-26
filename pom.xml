@@ -28,9 +28,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git@github.com:wavefronthq/java.git</connection>
-    <developerConnection>scm:git:git@github.com:wavefronthq/java.git</developerConnection>
-    <url>git@github.com:wavefronthq/java.git</url>
+    <connection>scm:git:git@github.com:ajayj89/wavefront-proxy.git</connection>
+    <developerConnection>scm:git:git@github.com:ajayj89/wavefront-proxy.git</developerConnection>
+    <url>git@github.com:ajayj89/wavefront-proxy.git</url>
     <tag>release-5.x</tag>
   </scm>
 
