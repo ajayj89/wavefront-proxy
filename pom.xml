@@ -61,6 +61,7 @@
     <java-lib.version>2019-09.1</java-lib.version>
 
     <doclint>none</doclint>
+    <maven.javadoc.failOnError>false</maven.javadoc.failOnError>
   </properties>
 
   <build>
