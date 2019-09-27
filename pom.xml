@@ -4,7 +4,7 @@
 
   <groupId>com.wavefront</groupId>
   <artifactId>wavefront</artifactId>
-  <version>5.1-RELEASE-TEST-SNAPSHOT</version>
+  <version>5.3-RELEASE-TEST-SNAPSHOT</version>
   <modules>
     <module>proxy</module>
   </modules>
