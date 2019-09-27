@@ -311,6 +311,7 @@
                 </goals>
                 <configuration>
                   <doclint>none</doclint>
+		  <source>${java.version}</source>
                 </configuration>
               </execution>
             </executions>
